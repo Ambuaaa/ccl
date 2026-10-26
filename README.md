@@ -1,6 +1,6 @@
 # Cousins Cricket League (CCL)
 
-A private, responsive web application for tracking cricket matches, tournaments, stats, and rivalries between cousins who play EA Cricket multiplayer.
+A private, responsive web application for tracking cricket matches, fifa, games, any tournaments with stats and rivalries between anyone who love playing multiplayer games. 
 
 ## Features
 
