@@ -1,26 +1,319 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #020617;
+  --foreground: #f1f5f9;
+  --primary: #16a34a;
+  --primary-foreground: #ffffff;
+  --secondary: #1e293b;
+  --secondary-foreground: #f1f5f9;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #16a34a;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #334155;
+  --input: #1e293b;
+  --ring: #16a34a;
+  --radius: 0.5rem;
+  --card: #0f172a;
+  --card-foreground: #f1f5f9;
+  --popover: #0f172a;
+  --popover-foreground: #f1f5f9;
+}
+
+.dark {
+  --background: #020617;
+  --foreground: #f1f5f9;
+  --primary: #16a34a;
+  --primary-foreground: #ffffff;
+  --secondary: #1e293b;
+  --secondary-foreground: #f1f5f9;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #16a34a;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #334155;
+  --input: #1e293b;
+  --ring: #16a34a;
+  --radius: 0.5rem;
+  --card: #0f172a;
+  --card-foreground: #f1f5f9;
+  --popover: #0f172a;
+  --popover-foreground: #f1f5f9;
+}
+
+* {
+  border-color: var(--border);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Cricket pitch inspired scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #15803d;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Cricket scoreboard number styling */
+.scoreboard-number {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Match card animations */
+.match-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  border-color: var(--primary);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Status badges */
+.status-badge {
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+}
+
+.status-planned { @apply bg-slate-800 text-slate-400; }
+.status-in_progress { @apply bg-yellow-900/30 text-yellow-400; }
+.status-completed { @apply bg-green-900/30 text-green-400; }
+.status-archived { @apply bg-slate-800 text-slate-500; }
+.status-scheduled { @apply bg-slate-800 text-slate-400; }
+.status-abandoned { @apply bg-red-900/30 text-red-400; }
+.status-no_result { @apply bg-orange-900/30 text-orange-400; }
+
+/* Winner highlight */
+.winner-row {
+  @apply bg-green-600/10 border-l-4 border-green-600;
+}
+
+/* Tournament card */
+.tournament-card {
+  @apply relative overflow-hidden bg-slate-900/50 border border-slate-800 rounded-xl p-6 transition-all duration-300;
+}
+
+.tournament-card::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-br from-green-600/10 to-transparent opacity-0 transition-opacity duration-300;
+}
+
+.tournament-card:hover::before {
+  @apply opacity-100;
+}
+
+.tournament-card:hover {
+  @apply border-green-600/50 shadow-lg shadow-green-600/10;
+}
+
+/* Player avatar */
+.player-avatar {
+  @apply relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 text-slate-300 font-medium;
+}
+
+.player-avatar-sm {
+  @apply h-8 w-8 text-sm;
+}
+
+.player-avatar-lg {
+  @apply h-12 w-12 text-base;
+}
+
+/* Empty state */
+.empty-state {
+  @apply flex flex-col items-center justify-center py-12 px-4 text-center text-slate-500;
+}
+
+.empty-state-icon {
+  @apply mb-4 text-slate-700;
+}
+
+.empty-state-title {
+  @apply mb-2 text-lg font-medium text-slate-300;
+}
+
+.empty-state-description {
+  @apply mb-4 max-w-sm text-sm text-slate-500;
+}
+
+/* Loading skeleton */
+.skeleton {
+  @apply animate-pulse bg-slate-800 rounded;
+}
+
+/* Table styles */
+.data-table {
+  @apply w-full caption-bottom text-sm;
+}
+
+.data-table th {
+  @apply h-12 px-4 text-left align-middle font-medium text-slate-400 border-b border-slate-800 bg-slate-900/50;
+}
+
+.data-table td {
+  @apply p-4 align-middle border-b border-slate-800/50;
+}
+
+.data-table tbody tr {
+  @apply transition-colors hover:bg-slate-800/50;
+}
+
+/* Form styles */
+.form-field {
+  @apply space-y-1.5;
+}
+
+.form-label {
+  @apply text-sm font-medium text-slate-300;
+}
+
+.form-input {
+  @apply flex h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-600/20 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.form-textarea {
+  @apply flex min-h-[80px] w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-600/20 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.form-select {
+  @apply flex h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-100 focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-600/20 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+/* Button variants */
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 disabled:pointer-events-none disabled:opacity-50 transition-colors;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-md bg-slate-800 px-4 py-2 text-sm font-medium text-slate-100 border border-slate-700 hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 disabled:pointer-events-none disabled:opacity-50 transition-colors;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 disabled:pointer-events-none disabled:opacity-50 transition-colors;
+}
+
+.btn-destructive {
+  @apply inline-flex items-center justify-center rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:pointer-events-none disabled:opacity-50 transition-colors;
+}
+
+/* Card */
+.card {
+  @apply rounded-xl border border-slate-800 bg-slate-900/50 text-slate-100 shadow-sm;
+}
+
+.card-header {
+  @apply flex flex-col space-y-1.5 p-6;
+}
+
+.card-title {
+  @apply text-xl font-semibold leading-none tracking-tight text-white;
+}
+
+.card-description {
+  @apply text-sm text-slate-400;
+}
+
+.card-content {
+  @apply p-6 pt-0;
+}
+
+.card-footer {
+  @apply flex items-center p-6 pt-0;
+}
+
+/* Badge */
+.badge {
+  @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:ring-offset-2 focus:ring-offset-slate-950;
+}
+
+.badge-green {
+  @apply border-green-600/30 bg-green-600/10 text-green-400;
+}
+
+.badge-yellow {
+  @apply border-yellow-600/30 bg-yellow-600/10 text-yellow-400;
+}
+
+.badge-red {
+  @apply border-red-600/30 bg-red-600/10 text-red-400;
+}
+
+.badge-blue {
+  @apply border-blue-600/30 bg-blue-600/10 text-blue-400;
+}
+
+.badge-purple {
+  @apply border-purple-600/30 bg-purple-600/10 text-purple-400;
+}
+
+.badge-slate {
+  @apply border-slate-600/30 bg-slate-600/10 text-slate-400;
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .mobile-stack {
+    @apply flex-col;
+  }
+  
+  .mobile-full {
+    @apply w-full;
+  }
+  
+  .hide-mobile {
+    @apply hidden;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
 }

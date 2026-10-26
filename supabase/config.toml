@@ -1,0 +1,68 @@
+project_id = "your-project-id"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 17
+
+[studio]
+enabled = true
+port = 54323
+api_url = "http://127.0.0.1:54321"
+
+[inbox]
+enabled = true
+port = 54324
+smtp_port = 54325
+pop3_port = 54326
+
+[storage]
+enabled = true
+port = 54327
+file_size_limit = "50MiB"
+
+[auth]
+enabled = true
+port = 54328
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:3000/**"]
+jwt_expiry = 3600
+enable_signup = true
+enable_anonymous_sign_ins = false
+enable_phone_signup = false
+enable_email_signup = true
+email_minimum_estimated_cost = 0
+email_max_frequency = 60
+email_otp_expiry = 300
+email_subject = "Your CCL Magic Link"
+email_template = """
+<h2>Welcome to Cousins Cricket League!</h2>
+<p>Click the link below to sign in:</p>
+<p><a href="{{ .ConfirmationURL }}">Sign in to CCL</a></p>
+<p>This link expires in 5 minutes.</p>
+"""
+sms_otp_expiry = 300
+sms_template = "Your CCL code is {{ .Code }}"
+external_email_enabled = false
+external_phone_enabled = false
+external_gotrue_enabled = false
+rate_limit = 100
+max_frequency = 60
+
+[auth.providers]
+email = true
+phone = false
+
+[functions]
+enabled = true
+port = 54329
+
+[analytics]
+enabled = false
+port = 54330
