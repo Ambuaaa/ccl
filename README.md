@@ -165,28 +165,6 @@ npm run typecheck
 supabase db push
 ```
 
-## Deployment
-
-### Vercel (Recommended)
-1. Push to GitHub
-2. Import project in Vercel
-3. Add environment variables
-4. Deploy
-
-### Supabase Configuration for Production
-1. Update Site URL in Supabase Auth settings
-2. Add redirect URLs for production domain
-3. Configure email templates for magic links
-
-## Future Enhancements
-
-- Ball-by-ball scoring
-- Scorecard image uploads
-- Pre-match predictions
-- Trash-talk/banter wall
-- Championship poster generator
-- Export to CSV/JSON
-- More tournament formats
 
 ## License
 
